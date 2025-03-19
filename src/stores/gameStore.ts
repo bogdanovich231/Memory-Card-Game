@@ -10,9 +10,30 @@ class GameStore {
   matchedCards: boolean[] = [];
   firstCardIndex: number | null = null;
   isComparing = false;
+  timeElapsed = 0;
+  timerId: NodeJS.Timeout | null = null;
 
   constructor() {
     makeAutoObservable(this);
+    this.startTimer();
+  }
+
+  startTimer() {
+    this.stopTimer();
+    this.timeElapsed = 0;
+
+    this.timerId = setInterval(() => {
+      runInAction(() => {
+        this.timeElapsed += 1;
+      });
+    }, 1000);
+  }
+
+  stopTimer() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
   }
 
   toggleFlip(index: number) {
@@ -31,6 +52,7 @@ class GameStore {
         this.isLoading = false;
       });
 
+      this.startTimer();
       console.log("Uploaded emoji:", this.emojis);
     } catch (error) {
       console.error("Error loading emoji:", error);

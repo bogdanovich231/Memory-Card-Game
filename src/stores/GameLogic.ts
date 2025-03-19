@@ -40,6 +40,10 @@ function matchCards(firstIndex: number, secondIndex: number) {
   GameStore.matchedCards[firstIndex] = true;
   GameStore.matchedCards[secondIndex] = true;
   GameStore.isComparing = false;
+
+  if (GameStore.matchedCards.every(Boolean)) {
+    GameStore.stopTimer();
+  }
 }
 
 function hideCardsAfterDelay(firstIndex: number, secondIndex: number) {
