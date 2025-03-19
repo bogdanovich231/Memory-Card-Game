@@ -12,7 +12,7 @@ const GameBoard = observer(() => {
   return (
     <div className="board">
       {gameStore.emojis.map((emoji, index) => (
-        <Card key={index} image={emoji} />
+        <Card key={index} image={emoji} index={index} />
       ))}
     </div>
   );
