@@ -1,5 +1,5 @@
 body {
-  background-color: #c2c8ee;
+  background-color: #000000;
   margin: 0;
   padding: 0;
 }
@@ -7,4 +7,11 @@ button {
   background-color: none;
   border: none;
   cursor: pointer;
+}
+h4 {
+  font-size: 35px;
+  color: #ffff;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
 }
