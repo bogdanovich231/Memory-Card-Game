@@ -1,5 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { fetchEmoji } from "../utils/emojiApi";
+import { getRandomEmojis } from "../utils/RandomEmojis/RandomEmojis";
 
 class GameStore {
   isLoading = false;
@@ -12,10 +13,10 @@ class GameStore {
   async loadEmoji() {
     try {
       const emojis = await fetchEmoji();
+      const emojiList: string[] = Object.values(emojis);
 
       runInAction(() => {
-        this.emojis = Object.values(emojis).slice(0, 10) as string[];
-
+        this.emojis = getRandomEmojis(emojiList, 6);
         this.isLoading = false;
       });
 
