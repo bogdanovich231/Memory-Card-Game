@@ -1,10 +1,10 @@
 import "./Card.scss";
-import iconTest from "../../assets/logo.svg";
+import ICard from "../../utils/interfaces/card";
 
-const Card = () => {
+const Card = ({ image }: ICard) => {
   return (
     <div className="card">
-      <img src={iconTest} alt="test" />
+      <img src={image} alt="emoji" />
     </div>
   );
 };
