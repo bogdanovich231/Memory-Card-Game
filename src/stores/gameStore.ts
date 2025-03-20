@@ -19,6 +19,8 @@ class GameStore {
   timerId: NodeJS.Timeout | null = null;
   gameFinished = false;
   attempts = 0;
+  isModalOpen = false;
+  currentLevel: number = 1;
 
   constructor() {
     makeAutoObservable(this);
@@ -46,16 +48,36 @@ class GameStore {
 
   finishGame() {
     this.stopTimer();
-    this.gameFinished = true;
+    this.isModalOpen = true;
     this.saveResults();
+  }
+
+  closeModalWindow() {
+    this.isModalOpen = false;
+  }
+
+  setCurrentLevel(level: number) {
+    this.currentLevel = level;
   }
 
   toggleFlip(index: number) {
     toggleFlip(index);
   }
 
+  getLevel(level: number) {
+    return dataLevels.find((l) => l.id === level);
+  }
+
   saveResults() {
-    saveResultToLocalStorage(this.timeElapsed, this.attempts);
+    const levelData = this.getLevel(this.currentLevel);
+    if (levelData) {
+      saveResultToLocalStorage(levelData.id, this.timeElapsed, this.attempts);
+    }
+  }
+
+  isLevelCompleted(level: number) {
+    const savedResults = loadResultFromLocalStorage() || [];
+    return savedResults.some((result: any) => result.level === level);
   }
 
   loadResults() {
@@ -91,9 +113,6 @@ class GameStore {
       console.error("Error loading emoji:", error);
       this.isLoading = false;
     }
-  }
-  getLevel(level: number) {
-    return dataLevels.find((l) => l.id === level);
   }
 }
 

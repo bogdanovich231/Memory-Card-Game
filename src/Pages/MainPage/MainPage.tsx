@@ -9,7 +9,12 @@ const MainPage = () => {
       <Logo />
       <div className="levels">
         {dataLevels.map((level) => (
-          <CardLevel id={level.id} level={level.level} cards={level.cards} />
+          <CardLevel
+            key={level.id}
+            id={level.id}
+            level={level.level}
+            cards={level.cards}
+          />
         ))}
       </div>
     </div>

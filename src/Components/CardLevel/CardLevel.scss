@@ -7,13 +7,16 @@
   border-radius: 20px;
   width: 480px;
   cursor: pointer;
+
   &:hover {
     box-shadow: 0 0 15px rgb(255, 255, 255);
     transition: 0.3s ease-in-out;
   }
+
   &_number h2 {
     color: #f0d100;
   }
+
   &_content {
     display: flex;
     align-items: center;
@@ -32,9 +35,21 @@
     clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
     border-radius: 5px;
     cursor: pointer;
+
     &:hover {
       background-color: #000000;
       transition: 0.3s ease-in-out;
+    }
+  }
+  &.completed {
+    background-color: #30f000;
+
+    .level-card_number h2 {
+      color: #ffffff;
+    }
+
+    .level-card_button {
+      background-color: #ffffff;
     }
   }
 }

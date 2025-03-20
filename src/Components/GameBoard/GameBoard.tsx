@@ -5,18 +5,31 @@ import "./GameBoard.scss";
 import { observer } from "mobx-react-lite";
 import NavbarBoard from "../NavbarBoard/NavbarBoard";
 import ModalWindow from "../ModalWindow/ModalWindow";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const GameBoard = observer(() => {
   const { level } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (level) {
-      gameStore.loadEmoji(parseInt(level));
+      const levelId = parseInt(level);
+      gameStore.setCurrentLevel(levelId);
+      gameStore.loadEmoji(levelId);
     }
   }, [level]);
 
-  const handleNextLevel = () => {};
+  const handleNextLevel = () => {
+    if (level) {
+      const nextLevel = parseInt(level) + 1;
+      if (nextLevel <= 4) {
+        navigate(`/game-board/${nextLevel}`);
+      } else {
+        navigate(`/`);
+      }
+      gameStore.closeModalWindow();
+    }
+  };
 
   return (
     <>
@@ -26,9 +39,9 @@ const GameBoard = observer(() => {
           <Card key={index} image={emoji} index={index} />
         ))}
       </div>
-      {gameStore.gameFinished && (
+      {gameStore.isModalOpen && (
         <ModalWindow
-          isOpen={gameStore.gameFinished}
+          isOpen={gameStore.isModalOpen}
           nextLevel={handleNextLevel}
         />
       )}
