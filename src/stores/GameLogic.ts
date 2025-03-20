@@ -43,6 +43,7 @@ function matchCards(firstIndex: number, secondIndex: number) {
 
   if (GameStore.matchedCards.every(Boolean)) {
     GameStore.stopTimer();
+    GameStore.finishGame();
   }
 }
 

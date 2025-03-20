@@ -12,6 +12,8 @@ class GameStore {
   isComparing = false;
   timeElapsed = 0;
   timerId: NodeJS.Timeout | null = null;
+  gameFinished = false;
+  attempts = 0;
 
   constructor() {
     makeAutoObservable(this);
@@ -36,7 +38,13 @@ class GameStore {
     }
   }
 
+  finishGame() {
+    this.stopTimer();
+    this.gameFinished = true;
+  }
+
   toggleFlip(index: number) {
+    this.attempts += 1;
     toggleFlip(index);
   }
 
