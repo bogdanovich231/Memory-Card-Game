@@ -2,6 +2,10 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { fetchEmoji } from "../utils/emojiApi";
 import { getRandomEmojis } from "../utils/RandomEmojis/RandomEmojis";
 import { toggleFlip } from "./GameLogic";
+import {
+  loadResultFromLocalStorage,
+  saveResultToLocalStorage,
+} from "./saveResult";
 
 class GameStore {
   isLoading = false;
@@ -18,6 +22,7 @@ class GameStore {
   constructor() {
     makeAutoObservable(this);
     this.startTimer();
+    this.loadResults();
   }
 
   startTimer() {
@@ -41,11 +46,29 @@ class GameStore {
   finishGame() {
     this.stopTimer();
     this.gameFinished = true;
+    this.saveResults();
   }
 
   toggleFlip(index: number) {
-    this.attempts += 1;
     toggleFlip(index);
+  }
+
+  saveResults() {
+    saveResultToLocalStorage(this.timeElapsed, this.attempts);
+  }
+
+  loadResults() {
+    const savedResults = loadResultFromLocalStorage();
+
+    if (savedResults && Array.isArray(savedResults)) {
+      if (savedResults.length > 0) {
+        const lastResult = savedResults[savedResults.length - 1];
+        this.timeElapsed = lastResult.time;
+        this.attempts = 0;
+      }
+    } else {
+      localStorage.setItem("gameResults", JSON.stringify([]));
+    }
   }
 
   async loadEmoji() {
@@ -61,7 +84,6 @@ class GameStore {
       });
 
       this.startTimer();
-      console.log("Uploaded emoji:", this.emojis);
     } catch (error) {
       console.error("Error loading emoji:", error);
       this.isLoading = false;
