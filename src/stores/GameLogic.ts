@@ -22,10 +22,12 @@ function getCardState(index: number) {
 }
 
 function compareCards(index: number) {
+  const firstIndex: number = GameStore.firstCardIndex!;
+
   GameStore.flippedCards[index] = true;
   GameStore.isComparing = true;
 
-  const firstIndex: number = GameStore.firstCardIndex!;
+  GameStore.attempts += 1;
 
   if (GameStore.emojis[firstIndex] === GameStore.emojis[index]) {
     matchCards(firstIndex, index);
