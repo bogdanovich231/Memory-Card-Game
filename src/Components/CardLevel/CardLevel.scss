@@ -6,6 +6,11 @@
   padding: 35px 23px;
   border-radius: 20px;
   width: 480px;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    transition: 0.3s ease-in-out;
+  }
   &_number h2 {
     color: #f0d100;
   }
