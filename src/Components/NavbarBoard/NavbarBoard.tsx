@@ -1,12 +1,11 @@
 import { observer } from "mobx-react-lite";
 import "./NavbarBoard.scss";
 import gameStore from "../../stores/gameStore";
+import { formatTime } from "../../utils/formatTime/formatTime";
 
 const NavbarBoard = observer(() => {
   const timeElapsed = gameStore.timeElapsed;
-  const hours = Math.floor(timeElapsed / 3600);
-  const minutes = Math.floor((timeElapsed % 3600) / 60);
-  const seconds = timeElapsed % 60;
+  const formattedTime = formatTime(timeElapsed);
 
   return (
     <div className="navbar">
@@ -14,10 +13,7 @@ const NavbarBoard = observer(() => {
         <h4>Level 1</h4>
       </div>
       <div className="navbar-timer">
-        <h4>
-          {String(hours).padStart(2, "0")}:{String(minutes).padStart(2, "0")}:
-          {String(seconds).padStart(2, "0")}
-        </h4>
+        <h4>{formattedTime}</h4>
       </div>
     </div>
   );
