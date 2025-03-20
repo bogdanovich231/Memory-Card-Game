@@ -7,7 +7,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/game-board" element={<GameBoard />} />
+        <Route path="/game-board/:level" element={<GameBoard />} />
       </Routes>
     </Router>
   );

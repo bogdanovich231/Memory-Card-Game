@@ -1,5 +1,6 @@
 import CardLevel from "../../Components/CardLevel/CardLevel";
 import Logo from "../../Components/Logo/Logo";
+import { dataLevels } from "../../utils/dataLevels/dataLevels";
 import "./MainPage.scss";
 
 const MainPage = () => {
@@ -7,8 +8,9 @@ const MainPage = () => {
     <div className="container">
       <Logo />
       <div className="levels">
-        <CardLevel />
-        <CardLevel />
+        {dataLevels.map((level) => (
+          <CardLevel id={level.id} level={level.level} cards={level.cards} />
+        ))}
       </div>
     </div>
   );

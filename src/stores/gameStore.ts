@@ -6,6 +6,7 @@ import {
   loadResultFromLocalStorage,
   saveResultToLocalStorage,
 } from "./saveResult";
+import { dataLevels } from "../utils/dataLevels/dataLevels";
 
 class GameStore {
   isLoading = false;
@@ -71,13 +72,15 @@ class GameStore {
     }
   }
 
-  async loadEmoji() {
+  async loadEmoji(level: number) {
     try {
       const emojis = await fetchEmoji();
       const emojiList: string[] = Object.values(emojis);
+      const levelData = this.getLevel(level);
+      const pairsCount = levelData ? levelData.cards : 4;
 
       runInAction(() => {
-        this.emojis = getRandomEmojis(emojiList, 6);
+        this.emojis = getRandomEmojis(emojiList, pairsCount);
         this.flippedCards = new Array(this.emojis.length).fill(false);
         this.matchedCards = new Array(this.emojis.length).fill(false);
         this.isLoading = false;
@@ -88,6 +91,9 @@ class GameStore {
       console.error("Error loading emoji:", error);
       this.isLoading = false;
     }
+  }
+  getLevel(level: number) {
+    return dataLevels.find((l) => l.id === level);
   }
 }
 
