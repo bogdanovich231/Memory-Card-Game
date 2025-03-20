@@ -1,0 +1,35 @@
+.level-card {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px 23px;
+  border-radius: 20px;
+  width: 480px;
+  &_number h2 {
+    color: #f0d100;
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+    &-title h4 {
+      font-weight: 700;
+      color: #000000;
+    }
+  }
+
+  .level-card_button {
+    width: 60px;
+    height: 70px;
+    background-color: #f0d100;
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #000000;
+      transition: 0.3s ease-in-out;
+    }
+  }
+}

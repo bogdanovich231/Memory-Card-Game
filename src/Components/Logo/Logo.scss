@@ -1,0 +1,46 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #f0d100;
+  overflow: hidden;
+  margin-top: 30px;
+  &-text {
+    display: inline-block;
+    position: relative;
+    transform: translateX(0);
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+  &-text.left {
+    transform: translateX(-200%);
+    animation-name: slide-in-left;
+  }
+
+  &-text.right {
+    transform: translateX(200%);
+    animation-name: slide-in-right;
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
