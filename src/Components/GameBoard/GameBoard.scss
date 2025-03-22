@@ -6,3 +6,12 @@
   margin: 0 auto;
   gap: 10px;
 }
+
+@media (max-width: 700px) {
+  .board {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 320px;
+  }
+
+}
